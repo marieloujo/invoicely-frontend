@@ -16,3 +16,6 @@ export const updateClientFailure = createAction('[Client] Update Client Failure'
 export const deleteClient = createAction('[Client] Delete Client', props<{ clientId: string }>());
 export const deleteClientSuccess = createAction('[Client] Delete Client Success', props<{ clientId: string }>());
 export const deleteClientFailure = createAction('[Client] Delete Client Failure', props<{ error: any }>());
+
+export const showLoader = createAction('[Client] Show Loader');
+export const hideLoader = createAction('[Client] Hide Loader');

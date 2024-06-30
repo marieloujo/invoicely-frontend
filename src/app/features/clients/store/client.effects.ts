@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import * as ClientActions from './client.actions';
 import { ClientService } from '../services/client.service';
 import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class ClientEffects {
@@ -19,9 +20,9 @@ export class ClientEffects {
             currentPage: response.data.current_page,
             totalPages: response.data.last_page
           })),
-          catchError(error => of(ClientActions.loadClientsFailure({ error })))
+          catchError(error => of(ClientActions.loadClientsFailure({ error }))),
         )
-      )
+      ),
     )
   );
 
@@ -33,7 +34,10 @@ export class ClientEffects {
           map(response => ClientActions.addClientSuccess({ client: response.data })),
           catchError(error => of(ClientActions.addClientFailure({ error })))
         )
-      )
+      ),
+      tap(() => {
+        this.store.dispatch(ClientActions.hideLoader());
+      })
     )
   );
 
@@ -42,7 +46,10 @@ export class ClientEffects {
     mergeMap(action => this.clientService.updateClient(action.client).pipe(
       map(response => ClientActions.updateClientSuccess({ client: response.data })),
       catchError(error => of(ClientActions.updateClientFailure({ error })))
-    ))
+    )),
+    tap(() => {
+      this.store.dispatch(ClientActions.hideLoader());
+    })
   ));
 
   deleteClient$ = createEffect(() =>
@@ -52,7 +59,10 @@ export class ClientEffects {
           map(() => ClientActions.deleteClientSuccess({ clientId: action.clientId })),
           catchError(error => of(ClientActions.deleteClientFailure({ error })))
         )
-      )
+      ),
+      tap(() => {
+        this.store.dispatch(ClientActions.hideLoader());
+      })
     )
   );
 
@@ -119,6 +129,7 @@ export class ClientEffects {
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,
+    private store: Store,
     private clientService: ClientService
   ) {}
 }

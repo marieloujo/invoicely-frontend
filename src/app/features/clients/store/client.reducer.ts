@@ -7,12 +7,14 @@ export interface State {
   currentPage: number;
   totalPages: number;
   error: any;
+  loading: boolean;
 }
 
 export const initialState: State = {
   clients: [],
   currentPage: 1,
   totalPages: 1,
+  loading: false,
   error: null
 };
 
@@ -28,27 +30,45 @@ export const clientReducer = createReducer(
   on(ClientActions.addClientSuccess, (state, { client }) => ({
     ...state,
     clients: [...state.clients, client],
-    error: null
+    error: null,
+    loading: false,
   })),
   on(ClientActions.addClientFailure, (state, { error }) => ({
     ...state,
-    error
+    error,
+    loading: false,
   })),
   on(ClientActions.updateClientSuccess, (state, { client }) => ({
     ...state,
-    clients: state.clients.map(c => c.id === client.id ? client : c)
+    clients: state.clients.map(c => c.id === client.id ? client : c),
+    loading: false,
   })),
-  on(ClientActions.updateClientFailure, (state, { error }) => ({ ...state, error })),
+  on(ClientActions.updateClientFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
   on(ClientActions.deleteClientSuccess, (state, { clientId }) => {
     return {
       ...state,
-      clients: state.clients.filter(client => client.id !== clientId)
+      clients: state.clients.filter(client => client.id !== clientId),
+      loading: false,
     };
   }),
   on(ClientActions.deleteClientFailure, (state, { error }) => {
     return {
       ...state,
-      error
+      error,
+      loading: false,
     };
-  })
+  }),
+  on(ClientActions.showLoader, state => ({
+    ...state,
+    loading: true
+  })),
+
+  on(ClientActions.hideLoader, state => ({
+    ...state,
+    loading: false
+  })),
 );

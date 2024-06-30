@@ -1,0 +1,17 @@
+<div class="row align-items-center mb-4 gy-3">
+    <div class="col-sm-auto ms-auto">
+        <nav aria-label="...">
+            <ul class="pagination mb-0">
+                <li class="page-item {{isPreviousButtonDisabled() ? 'disabled' : ''}}">
+                    <a class="page-link" href="#" (click)="goToPage(1)">Précedent</a>
+                </li>
+                <li class="page-item" *ngFor="let page of getArray(totalPages); let i = index" [class.active]="i + 1 === currentPage">
+                    <a class="page-link" href="#" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+                  </li>
+                <li class="page-item {{isNextButtonDisabled() ? 'disabled' : ''}}">
+                    <a class="page-link" href="#" (click)="goToPage(1)">Suivant</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

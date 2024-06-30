@@ -22,3 +22,8 @@ export const selectClientError = createSelector(
   selectClientState,
   (state: State) => state.error
 );
+
+export const selectLoading = createSelector(
+  selectClientState,
+  (state: State) => state.loading
+);

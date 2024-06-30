@@ -1,0 +1,5 @@
+<div class="mb-3 {{ size }}">
+    <label for="{{ label | slug }}" class="col-form-label">{{ label }}</label>
+    <input type="text" class="form-control" id="{{ label | slug }}" [formControlName]="name"/>
+    <ng-content></ng-content>
+</div>

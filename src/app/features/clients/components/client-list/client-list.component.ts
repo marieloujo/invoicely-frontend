@@ -7,11 +7,20 @@ import { loadClients, addClient, deleteClient } from '../../store/client.actions
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ClientFormModalComponent } from '../client-form-modal/client-form-modal.component';
 import { ConfirmModalComponent } from '@app/shared/components/confirm-modal/confirm-modal.component';
+import { TableComponent } from '@app/shared/components/table/table.component';
+import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-client-list',
   standalone: true,
-  imports: [NgFor, NgIf, AsyncPipe, ClientFormModalComponent, ConfirmModalComponent],
+  imports: [
+    NgFor, NgIf,
+    AsyncPipe,
+    TableComponent,
+    ClientFormModalComponent,
+    ConfirmModalComponent,
+    PaginationComponent
+  ],
   templateUrl: './client-list.component.html',
 })
 export class ClientListComponent {
@@ -25,6 +34,7 @@ export class ClientListComponent {
   clientToDelete: Client | null = null;
 
   currentPage: number = 1;
+  totalPages: number = 1;
   isEditMode: boolean = false;
 
   constructor(private store: Store) {
@@ -37,6 +47,9 @@ export class ClientListComponent {
     this.loadClients(1);
     this.subscription = this.currentPage$.subscribe(page => {
       this.currentPage = page;
+    });
+    this.subscription = this.totalPages$.subscribe(page => {
+      this.totalPages = page;
     });
   }
 
@@ -67,13 +80,11 @@ export class ClientListComponent {
     this.loadClients(page);
   }
 
-  isPreviousButtonDisabled(): Observable<boolean> {
-    return this.currentPage$.pipe(map((currentPage: number) => currentPage <= 1));
+  closeEditMode(state: boolean) {
+    console.log("start close mode", this.isEditMode, this.selectedClient);
+    this.isEditMode = state;
+    this.selectedClient = null
+    console.log("end close mode", this.isEditMode, this.selectedClient);
   }
 
-  isNextButtonDisabled(): Observable<boolean> {
-    return combineLatest([this.currentPage$, this.totalPages$]).pipe(
-      map(([currentPage, totalPages]) => currentPage >= totalPages)
-    );
-  }
 }
