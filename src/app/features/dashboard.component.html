@@ -1,0 +1,23 @@
+<!-- Begin page -->
+<div id="layout-wrapper">
+    <app-header [username]="user.name"></app-header>
+
+    <app-sidebar></app-sidebar>
+
+    <!-- Vertical Overlay-->
+    <div class="vertical-overlay"></div>
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content">
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+</div>

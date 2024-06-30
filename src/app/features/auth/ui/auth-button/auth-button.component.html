@@ -1,0 +1,16 @@
+<div class="mt-2">
+    @if (loading) {
+        <button class="btn btn-primary btn-load w-100">
+            <span class="d-flex align-items-center">
+                <span class="spinner-border flex-shrink-0" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </span>
+                <span class="flex-grow-1 ms-2">
+                    Chargement...
+                </span>
+            </span>
+        </button>
+    } @else {
+        <button class="btn btn-primary w-100" type="submit">{{ name }}</button>
+    }
+</div>

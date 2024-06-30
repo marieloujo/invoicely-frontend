@@ -1,0 +1,67 @@
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive table-card">
+                    <table class="table table-hover table-nowrap align-middle mb-0">
+                        <thead>
+                            <tr class="text-muted text-uppercase">
+                                <th scope="col">Nom & Prénom</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Adresse</th>
+                                <th scope="col" style="width: 12%;">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let client of clients$ | async">
+                                <td><img src="assets/images/users/avatar-4.jpg" alt="" class="avatar-xs rounded-circle me-2">
+                                    <a href="#javascript: void(0);" class="text-body align-middle fw-medium">{{ client.first_name }}</a>
+                                </td>
+                                <td>{{ client.email }}</td>
+                                <td>{{ client.adresse }}</td>
+                                <td>
+                                    <ul class="list-inline hstack gap-2 mb-0">
+                                        <li class="list-inline-item edit">
+                                            <a href="#" class="btn btn-soft-info btn-sm d-inline-block" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openEditModal(client)">
+                                                <i class="las la-pen fs-17 align-middle"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="#" class="btn btn-soft-danger btn-sm d-inline-block" data-bs-toggle="modal" data-bs-target="#confirmModal" (click)="confirmDelete(client)">
+                                                <i class="las la-file-download fs-17 align-middle"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody><!-- end tbody -->
+                    </table><!-- end table -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-center mb-4 gy-3">
+    <div class="col-sm-auto ms-auto">
+        <nav aria-label="...">
+            <ul class="pagination mb-0">
+                <li class="page-item {{isPreviousButtonDisabled() ? 'disabled' : ''}}">
+                    <a class="page-link" href="#" (click)="goToPage(1)">Précedent</a>
+                </li>
+                <li class="page-item" *ngFor="let page of [].constructor(totalPages$); let i = index" [class.active]="i + 1 === currentPage">
+                    <a class="page-link" href="#" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+                  </li>
+                <li class="page-item {{isNextButtonDisabled() ? 'disabled' : ''}}">
+                    <a class="page-link" href="#" (click)="goToPage(1)">Suivant</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<app-client-form-modal [client]="selectedClient" [isEditMode]="isEditMode"></app-client-form-modal>
+
+<app-confirm-modal (confirmed)="onDeleteConfirmed($event)"></app-confirm-modal>
