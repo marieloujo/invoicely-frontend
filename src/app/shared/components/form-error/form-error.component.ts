@@ -43,6 +43,9 @@ export class FormErrorComponent {
         else if (errorKey == 'passwordComplexity') {
           messages.push('Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule et un chiffre.');
         }
+        else if (errorKey == 'qteExceed') {
+          messages.push('La quantité excède le stok du produit.');
+        }
       }
     }
     return messages;

@@ -79,6 +79,7 @@ export class ServiceFormModalComponent {
         prix: this.serviceForm.value.price || '',
         id: null,
         slug: null,
+        stock: null,
         price: null
       }
 
