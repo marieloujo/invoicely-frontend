@@ -55,6 +55,21 @@ export const invoiceReducer = createReducer(
     error,
     loading: false,
   })),
+  on(InvoiceActions.addInvoiceFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
+  on(InvoiceActions.updateInvoiceSuccess, (state, { invoice }) => ({
+    ...state,
+    invoices: state.invoices.map(c => c.id === invoice.id ? invoice : c),
+    loading: false,
+  })),
+  on(InvoiceActions.updateInvoiceFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false,
+  })),
   on(InvoiceActions.showLoader, state => ({
     ...state,
     loading: true

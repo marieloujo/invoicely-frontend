@@ -1,7 +1,7 @@
 <div class="p-lg-5 p-4">
     <div class="text-center">
-        <h5 class="mb-0">Create New Account</h5>
-        <p class="text-muted mt-2">Get your free Invoika account now</p>
+        <h5 class="mb-0">Créer un compte</h5>
+        <p class="text-muted mt-2">Créez votre compte Invoicely gratuit</p>
         @if (errorMessage) {
             <div class="invalid-feedback">{{ errorMessage }}</div>
         }
@@ -56,8 +56,8 @@
             <app-auth-button [loading]="loading" name="S'enregistrer"></app-auth-button>
 
             <div class="mt-4 text-center">
-                <p class="mb-0">Don't have an account ?
-                    <a routerLink="/auth/login"class="fw-medium text-primary text-decoration-underline"> Signin </a>
+                <p class="mb-0">Vous avez un compte ? ?
+                    <a routerLink="/auth/login"class="fw-medium text-primary text-decoration-underline"> Connectez-vous </a>
                 </p>
             </div>
         </form>

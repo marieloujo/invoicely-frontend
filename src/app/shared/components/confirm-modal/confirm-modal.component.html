@@ -1,13 +1,13 @@
 <app-modal modalId="confirmModal">
     <div class="modal-body text-center p-5">
         <div class="mt-4">
-            <h4 class="mb-3">Confirmer la suppression!</h4>
+            <h4 class="mb-3">{{ title ?? 'Confirmer la suppression!' }}</h4>
             <p class="text-muted mb-4">
-                Vous êtes sur le point de supprimer un client, êtes-vous certain de ce choix ?
+                {{ description ?? 'Vous êtes sur le point de supprimer un client, êtes-vous certain de ce choix ?' }}
             </p>
             <div class="hstack gap-2 justify-content-center">
                 <button type="button" id="dismiss-confirm-modal" class="btn btn-light" (click)="cancel()" data-bs-dismiss="modal">Non, Annuler</button>
-                <button type="button" class="btn btn-danger" (click)="confirm()">Oui! Supprimer</button>
+                <button type="button" class="btn btn-{{ deleteMode ? 'danger' : 'primary'}}" (click)="confirm()">Oui! {{ deleteMode ? 'Supprimer' : 'Continuer'}}</button>
             </div>
         </div>
     </div>

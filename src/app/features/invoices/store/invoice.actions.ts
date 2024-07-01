@@ -13,5 +13,9 @@ export const findInvoiceByIdStart = createAction('[Invoice] Find Invoice By Id S
 export const findInvoiceByIdSuccess = createAction('[Invoice] Find Invoice By Id Success', props<{ invoice: Invoice }>());
 export const findInvoiceByIdFailure = createAction('[Invoice] Find Invoice By Id Failure',props<{ error: string }>());
 
+export const updateInvoice = createAction('[Invoice] Update Invoice', props<{ invoice: Invoice }>());
+export const updateInvoiceSuccess = createAction('[Invoice] Update Invoice Success', props<{ invoice: Invoice }>());
+export const updateInvoiceFailure = createAction('[Invoice] Update Invoice Failure', props<{ error: any }>());
+
 export const showLoader = createAction('[Invoice] Show Loader');
 export const hideLoader = createAction('[Invoice] Hide Loader');

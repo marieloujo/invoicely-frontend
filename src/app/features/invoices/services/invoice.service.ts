@@ -27,4 +27,8 @@ export class InvoiceService {
     return this.httpClientService.get<ApiResponse<Invoice>>(`${this.baseEndpoint}/${id}`);
   }
 
+  markInvoiceAsPaid(id: string): Observable<ApiResponse<Invoice>> {
+    return this.httpClientService.put<ApiResponse<Invoice>>(`${this.baseEndpoint}/${id}/mark-as-paid`, {});
+  }
+
 }

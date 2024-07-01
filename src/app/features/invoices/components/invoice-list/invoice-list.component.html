@@ -52,11 +52,13 @@
                             <i class="las la-eye fs-17 align-middle"></i>
                         </button>
                     </li>
-                    <li class="list-inline-item">
-                        <a href="javascript: void(0);" class="btn btn-soft-success btn-sm d-inline-block">
-                            <i class="las la-check-square fs-17 align-middle"></i>
-                        </a>
-                    </li>
+                    @if (!invoice.status) {
+                        <li class="list-inline-item">
+                            <a href="javascript: void(0);" class="btn btn-soft-success btn-sm d-inline-block" data-bs-toggle="modal" data-bs-target="#confirmModal" (click)="confirmUpdate(invoice)">
+                                <i class="las la-check-square fs-17 align-middle"></i>
+                            </a>
+                        </li>
+                    }
                 </ul>
             </td>
         </tr>
@@ -66,3 +68,10 @@
 @if (withPagination) {
     <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (goToPageEvent)="goToPage($event)"/>
 }
+
+<app-confirm-modal
+    (confirmed)="onUpdateConfirmed($event)"
+    title="Payer une facture"
+    description="Vous êtes sur le point de marquer cette facture comme payer. Voulez vous continer ?"
+    [deleteMode]="false"
+/>

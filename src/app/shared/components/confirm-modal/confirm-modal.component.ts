@@ -10,6 +10,9 @@ import { ModalComponent } from '../modal/modal.component';
 export class ConfirmModalComponent {
   @Output() confirmed = new EventEmitter<boolean>();
   @Input() name: string = '';
+  @Input() deleteMode: boolean = true;
+  @Input() title: string | null = null;
+  @Input() description: string | null = null;
 
   constructor() { }
 

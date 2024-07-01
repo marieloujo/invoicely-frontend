@@ -79,6 +79,40 @@ export class InvoiceEffects {
     ))
   ));
 
+
+  updateInvoice$ = createEffect(() => this.actions$.pipe(
+    ofType(InvoiceActions.updateInvoice),
+    mergeMap(action => this.invoiceService.markInvoiceAsPaid(action.invoice.id || '').pipe(
+      map(response => InvoiceActions.updateInvoiceSuccess({ invoice: response.data })),
+      catchError(error => of(InvoiceActions.updateInvoiceFailure({ error })))
+    )),
+    tap(() => {
+      this.store.dispatch(InvoiceActions.hideLoader());
+    })
+  ));
+
+  updateInvoiceSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(InvoiceActions.updateInvoiceSuccess),
+      map(action => {
+        this.toastr.success('La facture été marqué comme payé avec succès', 'Success');
+        document.getElementById('dismiss-confirm-modal')?.click()
+      })
+    ), { dispatch: false }
+  );
+
+  updateInvoiceFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(InvoiceActions.updateInvoiceFailure),
+      map(action => {
+        this.toastr.error('Échec de la mise à jour de la facture', 'Error');
+        document.getElementById('dismiss-confirm-modal')?.click()
+        this.errorHandlerService.handleError(action.error)
+      })
+    ), { dispatch: false }
+  );
+
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,
