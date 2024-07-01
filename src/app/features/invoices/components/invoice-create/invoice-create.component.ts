@@ -19,6 +19,7 @@ import { selectAllServices } from '@app/features/services/store/service.selector
 import { CurrencyXofPipe } from '@app/shared/pipes/currency-xof.pipe';
 import { FormErrorComponent } from '@app/shared/components/form-error/form-error.component';
 import { loadServices } from '@app/features/services/store/service.actions';
+import { ActivatedRoute } from '@angular/router';
 
 interface FactureAmount {
   montantTotalHT: number,
@@ -41,7 +42,7 @@ interface FactureAmount {
 })
 export class InvoiceCreateComponent {
 
-  @Input() typeFacture: TypeFacturation = TypeFacturation.SERVICE;
+  typeFacture: TypeFacturation = TypeFacturation.SERVICE;
 
   createInvoiceForm: FormGroup;
   products$!: Observable<Product[]>;
@@ -59,7 +60,7 @@ export class InvoiceCreateComponent {
   loading: boolean = false;
   selectClient: boolean = true;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private route: ActivatedRoute) {
     this.createInvoiceForm = new FormGroup({
       items: new FormArray([
         this.createItem()
@@ -89,6 +90,11 @@ export class InvoiceCreateComponent {
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.typeFacture = params.get('type') == 'services'
+        ? TypeFacturation.SERVICE
+        : TypeFacturation.PRODUCT 
+    });
     if (this.typeFacture == TypeFacturation.PRODUCT) {
       this.store.dispatch(loadProducts({page:1}));
       this.products$ = this.store.select(selectAllProducts);

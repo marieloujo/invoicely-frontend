@@ -17,144 +17,113 @@
 
     <div id="scrollbar">
         <div class="container-fluid">
-
             <div id="two-column-menu"></div>
             <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span data-key="t-menu">Main</span></li>
+                <li class="menu-title">
+                    <span data-key="t-menu">Main</span>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" routerLink="/app" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <a
+                        class="nav-link menu-link"
+                        routerLink="/app"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">
                         <i class="las la-house-damage"></i> <span data-key="t-dashboard">Dashboard</span>
                     </a>
                 </li>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">App</span></li>
+                <li class="menu-title">
+                    <i class="ri-more-fill"></i>
+                    <span data-key="t-pages">App</span>
+                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarInvoiceManagement" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInvoiceManagement">
-                        <i class="las la-file-invoice"></i> <span data-key="t-invoices">Factures</span>
+                    <a class="nav-link menu-link"
+                        href="#sidebarMultilevel"
+                        data-bs-toggle="collapse"
+                        role="button" aria-expanded="false"
+                        aria-controls="sidebarMultilevel">
+                        <i class="las la-file-invoice"></i>
+                        <span data-key="t-multi-level">Factures</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarInvoiceManagement">
+                    <div class="collapse menu-dropdown" id="sidebarMultilevel">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a routerLink="/app/factures" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-key="t-invoice"> Liste des factures </a>
+                                <a routerLink="/app/factures"
+                                    routerLinkActive="active"
+                                    class="nav-link"
+                                    data-key="t-level-1.1">
+                                    Liste des factures
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a routerLink="/app/factures/create" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-key="t-invoice"> Créer une facture </a>
+                                <a href="#sidebarAccount"
+                                    class="nav-link" data-bs-toggle="collapse"
+                                    role="button" aria-expanded="false"
+                                    aria-controls="sidebarAccount"
+                                    data-key="t-level-1.2">
+                                    Créer une facture
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarAccount">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a routerLink="/app/factures/creer/produits"
+                                                routerLinkActive="active"
+                                                class="nav-link" data-key="t-level-2.1">
+                                                De produit
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a routerLink="/app/factures/creer/services"
+                                                routerLinkActive="active"
+                                                class="nav-link" data-key="t-level-2.1">
+                                                De service
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link menu-link" routerLink="/app/clients" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="las la-user-friends"></i> <span data-key="t-dashboard">Mes Clients</span>
+                    <a
+                        class="nav-link menu-link"
+                        routerLink="/app/clients"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="las la-user-friends"></i>
+                        <span data-key="t-dashboard">Mes Clients</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" routerLink="/app/services" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="las la-folder"></i> <span data-key="t-dashboard">Services</span>
+                    <a
+                        class="nav-link menu-link"
+                        routerLink="/app/services"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="las la-folder"></i>
+                        <span data-key="t-dashboard">Services</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" routerLink="/app/produits" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="las la-store"></i> <span data-key="t-dashboard">Produits</span>
+                    <a
+                        class="nav-link menu-link"
+                        routerLink="/app/produits"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="las la-store"></i>
+                        <span data-key="t-dashboard">Produits</span>
                     </a>
                 </li>
+                <div class="help-box text-center">
+                    <img src="assets/images/create-invoice.png" class="img-fluid" alt="">
+                    <p class="mb-3 mt-2 text-muted">
+                        La gestion de vos factures devient plus facile avec Invoicely
+                    </p>
+                </div>
             </ul>
-            <!-- <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="index.html">
-                        <i class="las la-house-damage"></i> <span data-key="t-dashboard">Dashboard</span>
-                    </a>
-                </li>
-
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarInvoiceManagement" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInvoiceManagement">
-                        <i class="las la-file-invoice"></i> <span data-key="t-invoices">Invoices Management</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarInvoiceManagement">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="invoice.html" class="nav-link" data-key="t-invoice"> Invoice </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="invoice-add.html" class="nav-link" data-key="t-add-invoice"> Add Invoice </a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a href="invoice-details.html" class="nav-link" data-key="t-invoice-details"> Invoice Details </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="payments.html" class="nav-link" data-key="t-payments">Payments</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="taxes.html" class="nav-link" data-key="t-taxes">Taxes</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#sidebarProducts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts"
-                                   data-key="t-products">Products
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarProducts">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="product-list.html" class="nav-link" data-key="t-product-list"> Product List </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="product-add.html" class="nav-link" data-key="t-add-product"> Add Product </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="#sidebarReport" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReport"
-                                    data-key="t-report">Report
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarReport">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="payment-summary.html" class="nav-link" data-key="t-payment-summary"> Payment Summary </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="sale-report.html" class="nav-link" data-key="t-sale-report"> Sale Report </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="expenses-report.html" class="nav-link" data-key="t-expenses-report"> Expenses Report </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="user.html" class="nav-link" data-key="t-users">Users</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link menu-link" href="#sidebarTransaction" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTransaction"
-                                    data-key="t-transaction">Transaction
-                                </a>
-                                <div class="collapse menu-dropdown" id="sidebarTransaction">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            <a href="transaction-list.html" class="nav-link" data-key="t-transaction-list"> Transaction List </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="transaction-new.html" class="nav-link" data-key="t-new-transaction"> New Transaction </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-            </ul> -->
         </div>
         <!-- Sidebar -->
     </div>

@@ -23,7 +23,7 @@ const routes: Routes = [
         path: 'factures',
         children: [
           { path: '', component: InvoiceIndexComponent },
-          { path: 'create', component: InvoiceCreateComponent },
+          { path: 'creer/:type', component: InvoiceCreateComponent },
           { path: ':id', component: InvoiceDetailComponent },
         ]
       },
