@@ -1,0 +1,47 @@
+<app-table>
+    <thead slot="thead">
+        <tr class="text-muted text-uppercase">
+            <th scope="col">Designation</th>
+            <th scope="col">Stock actuel</th>
+            <th scope="col">Niveau Stock</th>
+            <th scope="col" style="width: 20%;">P.U ht</th>
+            <th scope="col" style="width: 20%;">P.U ttc</th>
+            <th scope="col" style="width: 12%;">Action</th>
+        </tr>
+    </thead>
+    <tbody slot="tbody">
+        <tr *ngFor="let product of products$ | async">
+            <td>{{ product.designation }}</td>
+            <td>{{ product.stock }}</td>
+            <td>
+                <div [ngSwitch]="determineStockLevel(product)">
+                    <div *ngSwitchCase="'bon'" class="badge bg-info-subtle text-info">acceptable</div>
+                    <div *ngSwitchDefault class="badge bg-warning-subtle text-warning">en alerte</div>
+                    <div *ngSwitchCase="'critique'" class="badge bg-danger-subtle text-danger">critique</div>
+                </div>
+            </td>
+            <td>{{ product.price?.unit_price_excl | xof }} <sub>XOF</sub></td>
+            <td>{{ product.price?.unit_price_incl | xof }} <sub>XOF</sub></td>
+            <td>
+                <ul class="list-inline hstack gap-2 mb-0">
+                    <li class="list-inline-item edit">
+                        <a href="javascript: void(0);" class="btn btn-soft-info btn-sm d-inline-block" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openEditModal(product)">
+                            <i class="las la-pen fs-17 align-middle"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="javascript: void(0);" class="btn btn-soft-danger btn-sm d-inline-block" data-bs-toggle="modal" data-bs-target="#confirmModal" (click)="confirmDelete(product)">
+                            <i class="las la-trash fs-17 align-middle"></i>
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</app-table>
+
+<app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (goToPageEvent)="goToPage($event)"/>
+
+<app-product-form-modal [product]="selectedProduct" [isEditMode]="isEditMode" (closeEditModeEvent)="closeEditMode($event)" ></app-product-form-modal>
+
+<app-confirm-modal (confirmed)="onDeleteConfirmed($event)"></app-confirm-modal>

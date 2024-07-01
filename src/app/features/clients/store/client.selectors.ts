@@ -1,29 +1,29 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from './client.reducer';
+import { ClientState } from './client.reducer';
 
-export const selectClientState = createFeatureSelector<State>('clients');
+export const selectClientState = createFeatureSelector<ClientState>('clients');
 
 export const selectAllClients = createSelector(
   selectClientState,
-  (state: State) => state.clients
+  (state: ClientState) => state.clients
 );
 
 export const selectCurrentPage = createSelector(
   selectClientState,
-  (state: State) => state.currentPage
+  (state: ClientState) => state.currentPage
 );
 
 export const selectTotalPages = createSelector(
   selectClientState,
-  (state: State) => state.totalPages
+  (state: ClientState) => state.totalPages
 );
 
 export const selectClientError = createSelector(
   selectClientState,
-  (state: State) => state.error
+  (state: ClientState) => state.error
 );
 
 export const selectLoading = createSelector(
   selectClientState,
-  (state: State) => state.loading
+  (state: ClientState) => state.loading
 );

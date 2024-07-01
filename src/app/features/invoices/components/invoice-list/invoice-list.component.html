@@ -1,0 +1,68 @@
+<app-table>
+    <thead slot="thead">
+        <tr class="text-muted text-uppercase">
+            <th style="width: 50px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                </div>
+            </th>
+            <th scope="col">Facture ID</th>
+            <th scope="col">Client</th>
+            <th scope="col" style="width: 15%;">Email</th>
+            <th scope="col">Date</th>
+            <th scope="col">Motant ht</th>
+            <th scope="col">Motant ttc</th>
+            <th scope="col" style="width: 5%;">Status</th>
+            <th scope="col" style="width: 12%;">Action</th>
+        </tr>
+    </thead>
+    <tbody slot="tbody">
+        <tr *ngFor="let invoice of invoices$ | async">
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="check1" value="option">
+                </div>
+            </td>
+            <td><a href="javascript: void(0);" class="fw-medium mb-0">
+                #{{ invoice.reference ?? '' | truncateInvoiceReference  }}
+            </a></td>
+            <td>
+                <!-- <span class="avatar-xs rounded-circle me-2 bg-success text-white fw-medium fs-11 p-2">
+                    {{ 'JD' | initials }}
+                </span> -->
+                <a href="javascript: void(0);" class="text-body align-middle fw-medium">
+                    {{ invoice.client?.full_name }}
+                </a>
+            </td>
+            <td>{{ invoice.client?.email }}</td>
+            <td>{{ invoice.created_at | customDate }}</td>
+            <td>{{ invoice.total_amount_excl | xof }} <sub>XOF</sub> </td>
+            <td>{{ invoice.total_amount_incl | xof }} <sub>XOF</sub> </td>
+            <td>
+                @if (invoice.status) {
+                    <span class="badge bg-success-subtle text-success p-2">Payée</span>
+                } @else {
+                    <span class="badge bg-danger-subtle text-danger p-2">Impayée</span>
+                }
+            </td>
+            <td>
+                <ul class="list-inline hstack gap-2 mb-0">
+                    <li class="list-inline-item edit">
+                        <button class="btn btn-soft-info btn-sm d-inline-block" (click)="goToInvoiceDetail(invoice.id ?? '')">
+                            <i class="las la-eye fs-17 align-middle"></i>
+                        </button>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="javascript: void(0);" class="btn btn-soft-success btn-sm d-inline-block">
+                            <i class="las la-check-square fs-17 align-middle"></i>
+                        </a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</app-table>
+
+@if (withPagination) {
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (goToPageEvent)="goToPage($event)"/>
+}

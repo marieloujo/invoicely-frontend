@@ -13,9 +13,19 @@ import { ClientEffects } from '@features/clients/store/client.effects';
 import { authInterceptor } from '@core/interceptors/auth.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { serviceReducer } from './features/services/store/service.reducer';
+import { ServiceEffects } from './features/services/store/service.effects';
+import { productReducer } from './features/products/store/product.reducer';
+import { ProductEffects } from './features/products/store/product.effects';
+import { invoiceReducer } from './features/invoices/store/invoice.reducer';
+import { InvoiceEffects } from './features/invoices/store/invoice.effects';
+import { DatePipe } from '@angular/common';
+import { statisticReducer } from './features/dashboard/store/statistic.reducer';
+import { StatisticEffects } from './features/dashboard/store/statistic.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    DatePipe,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
@@ -26,9 +36,13 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor])
     ),
     provideStore({
-      clients: clientReducer
+      clients: clientReducer,
+      services: serviceReducer,
+      products: productReducer,
+      invoices: invoiceReducer,
+      statistics: statisticReducer
     }),
-    provideEffects([ClientEffects]),
+    provideEffects([ClientEffects, ServiceEffects, ProductEffects, InvoiceEffects, StatisticEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };

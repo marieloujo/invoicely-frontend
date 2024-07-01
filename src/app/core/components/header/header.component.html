@@ -48,14 +48,14 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="javascript: void(0);">
                             <i class="bx bx-user fs-15 align-middle me-1"></i>
                             <span key="t-profile">Profile</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#">
+                        <a class="dropdown-item text-danger" (click)="logout()" href="javascript: void(0);">
                             <i class="bx bx-power-off fs-15 align-middle me-1 text-danger"></i>
-                            <span key="t-logout">Logout</span>
+                            <span key="t-logout">Déconnection</span>
                         </a>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as ClientActions from './client.actions';
 import { Client } from '@app/shared/models/client.model';
 
-export interface State {
+export interface ClientState {
   clients: Client[];
   currentPage: number;
   totalPages: number;
@@ -10,7 +10,7 @@ export interface State {
   loading: boolean;
 }
 
-export const initialState: State = {
+export const initialState: ClientState = {
   clients: [],
   currentPage: 1,
   totalPages: 1,

@@ -1,0 +1,116 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Tableau de bord</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end page title  -->
+
+<div class="row"  *ngIf="statistic$ | async as statistic">
+    <div class="col-xl-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-22 fw-semibold ff-secondary mb-2">
+                            <span class="counter-value">{{ statistic.total_amount | xof }} <sub>XOF</sub></span>
+                        </h4>
+                        <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Motant total</p>
+                    </div>
+                    <div class="avatar-sm flex-shrink-0">
+                        <span class="avatar-title bg-light rounded-circle fs-3">
+                            <i class="las la-file-alt fs-24 text-primary"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between mt-4">
+                    <div>
+                        <span class="badge bg-primary me-1">{{ statistic.total_invoices }}</span>
+                        <span class="text-muted">Total Factures</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-22 fw-semibold ff-secondary mb-2">
+                            <span class="counter-value">{{ statistic.total_paid_amount | xof }} <sub>XOF</sub></span>
+                        </h4>
+                        <p class="text-uppercase fw-medium fs-14 text-muted mb-0">Montant Collecté</p>
+                    </div>
+                    <div class="avatar-sm flex-shrink-0">
+                        <span class="avatar-title bg-light rounded-circle fs-3">
+                            <i class="las la-check-square fs-24 text-primary"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between mt-4">
+                    <div>
+                        <span class="badge bg-success me-1">{{ statistic.total_paid_invoices }}</span>
+                        <span class="text-muted">Facture(s) payée(s)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-12">
+        <div class="card bg-primary">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1">
+                        <h4 class="fs-22 fw-semibold ff-secondary mb-2 text-white">
+                            <span class="counter-value">{{ statistic.total_unpaid_amount | xof }} <sub>XOF</sub></span>
+                        </h4>
+                        <p class="text-uppercase fw-medium fs-14 text-white-50 mb-0">Montant Non perçu</p>
+                    </div>
+                    <div class="avatar-sm flex-shrink-0">
+                        <span class="avatar-title bg-light-subtle text-light  rounded-circle fs-3">
+                            <i class="las la-clock fs-24 text-white"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between mt-4">
+                    <div>
+                        <span class="badge bg-danger me-1">{{ statistic.total_unpaid_invoices }}</span>
+                        <span class="text-white">Facture(s) impayée(s)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4 mb-2">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 text-capitalize">Factures récemment établies</h4>
+        </div>
+    </div>
+</div>
+
+@defer {
+    <app-invoice-list [withPagination]="false"></app-invoice-list>
+} @loading (minimum 2s) {
+    <p>Chargement de la liste...</p>
+    <p class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-6"></span>
+    </p>
+}

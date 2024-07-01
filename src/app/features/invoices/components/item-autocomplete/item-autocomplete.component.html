@@ -1,0 +1,6 @@
+<input type="text" [formControl]="searchControl" class="form-control bg-light border-0" placeholder="Search product" />
+<ul *ngIf="filteredProducts$ | async as filteredProducts">
+    <li *ngFor="let product of filteredProducts" (click)="selectProduct(product)">
+    {{ product.designation }}
+    </li>
+</ul>

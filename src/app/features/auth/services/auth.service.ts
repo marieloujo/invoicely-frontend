@@ -26,8 +26,8 @@ export class AuthService {
     return this.httpClientService.post(`${this.baseEndpoint}/register`, body);
   }
 
-  logout(): void {
-    localStorage.removeItem('access_token');
+  logout(): Observable<any> {
+    return this.httpClientService.post(`${this.baseEndpoint}/logout`, {});
   }
 
   isAuthenticated(): boolean {

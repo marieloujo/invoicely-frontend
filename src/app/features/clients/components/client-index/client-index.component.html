@@ -21,24 +21,17 @@
             Ajouter
         </button>
     </div>
-
-    <div class="col-sm-auto ms-auto">
-        <div class="d-flex gap-3">
-            <div class="search-box">
-                <input type="text" class="form-control" id="searchMemberList" placeholder="Search for Result">
-                <i class="las la-search search-icon"></i>
-            </div>
-            <div class="">
-                <button type="button" id="dropdownMenuLink1" data-bs-toggle="dropdown" aria-expanded="false" class="btn btn-soft-info btn-icon fs-14"><i class="las la-ellipsis-v fs-18"></i></button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                    <li><a class="dropdown-item" href="#">All</a></li>
-                    <li><a class="dropdown-item" href="#">Last Week</a></li>
-                    <li><a class="dropdown-item" href="#">Last Month</a></li>
-                    <li><a class="dropdown-item" href="#">Last Year</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 
-<app-client-list></app-client-list>
+@defer () {
+    <app-client-list></app-client-list>
+} @loading (minimum 2s) {
+    <p>Chargement de la liste...</p>
+    <p class="card-text placeholder-glow">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-6"></span>
+    </p>
+}

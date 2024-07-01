@@ -81,10 +81,8 @@ export class ClientListComponent {
   }
 
   closeEditMode(state: boolean) {
-    console.log("start close mode", this.isEditMode, this.selectedClient);
     this.isEditMode = state;
     this.selectedClient = null
-    console.log("end close mode", this.isEditMode, this.selectedClient);
   }
 
 }

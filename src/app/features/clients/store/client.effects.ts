@@ -6,6 +6,7 @@ import * as ClientActions from './client.actions';
 import { ClientService } from '../services/client.service';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
+import { ErrorHandlerService } from '@app/core/services/exceptions.service';
 
 @Injectable()
 export class ClientEffects {
@@ -76,12 +77,22 @@ export class ClientEffects {
     ), { dispatch: false }
   );
 
+  loadClientsFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ClientActions.loadClientsFailure),
+      map(action => {
+        this.errorHandlerService.handleError(action.error)
+      })
+    ), { dispatch: false }
+  );
+
   addClientFailure$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ClientActions.addClientFailure),
       map(action => {
         this.toastr.error('Échec de l\'ajout d\'un client', 'Error');
         document.getElementById('dismiss-modal')?.click()
+        this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
   );
@@ -102,6 +113,7 @@ export class ClientEffects {
       map(action => {
         this.toastr.error('Échec de la mise à jour du client', 'Error');
         document.getElementById('dismiss-modal')?.click()
+        this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
   );
@@ -122,6 +134,7 @@ export class ClientEffects {
       map(action => {
         this.toastr.error('Échec de la suppression du client', 'Error');
         document.getElementById('dismiss-confirm-modal')?.click()
+        this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
   );
@@ -130,6 +143,7 @@ export class ClientEffects {
     private toastr: ToastrService,
     private actions$: Actions,
     private store: Store,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private errorHandlerService: ErrorHandlerService
   ) {}
 }

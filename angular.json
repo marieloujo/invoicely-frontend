@@ -41,7 +41,8 @@
               "public/assets/js/plugins.js",
 
               "public/assets/js/pages/dashboard.init.js",
-              "public/assets/js/pages/password-addon.init.js"
+              "public/assets/js/pages/password-addon.init.js",
+              "public/assets/js/app.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,

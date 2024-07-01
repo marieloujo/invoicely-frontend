@@ -29,8 +29,33 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">App</span></li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarInvoiceManagement" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarInvoiceManagement">
+                        <i class="las la-file-invoice"></i> <span data-key="t-invoices">Factures</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarInvoiceManagement">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a routerLink="/app/factures" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-key="t-invoice"> Liste des factures </a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/app/factures/create" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link" data-key="t-invoice"> Créer une facture </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" routerLink="/app/clients" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="las la-house-damage"></i> <span data-key="t-dashboard">Mes Clients</span>
+                        <i class="las la-user-friends"></i> <span data-key="t-dashboard">Mes Clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" routerLink="/app/services" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="las la-folder"></i> <span data-key="t-dashboard">Services</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" routerLink="/app/produits" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="las la-store"></i> <span data-key="t-dashboard">Produits</span>
                     </a>
                 </li>
             </ul>

@@ -30,6 +30,13 @@ export class FormErrorComponent {
           const minLength = this.control.errors['minlength'].requiredLength;
           messages.push(`Le nombre minimum de caractère est ${minLength}.`);
         }
+        else if (errorKey === 'min') {
+          const min = this.control.errors['min'].min;
+          messages.push(`La valeur minimale est de ${min}.`);
+        }
+        else if (errorKey === 'pattern') {
+          messages.push('La valeur du champ n\'est pas correcte');
+        }
         else if (errorKey == 'passwordMismatch') {
           messages.push('Les mots de passe ne concordent pas.');
         }
