@@ -18,8 +18,7 @@ import { AuthButtonComponent } from '@features/auth/ui/auth-button/auth-button.c
     FormErrorComponent,
     AuthButtonComponent
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
 

@@ -11,7 +11,6 @@ import { TruncateInvoiceReferencePipe } from '@app/shared/pipes/truncate-invoice
 import { CurrencyXofPipe } from '@app/shared/pipes/currency-xof.pipe';
 import { CustomDatePipe } from '@app/shared/pipes/custom-date.pipe';
 import { Router } from '@angular/router';
-import { InitialsPipe } from '@app/shared/pipes/initials.pipe';
 import { ConfirmModalComponent } from '@app/shared/components/confirm-modal/confirm-modal.component';
 
 @Component({
@@ -23,7 +22,6 @@ import { ConfirmModalComponent } from '@app/shared/components/confirm-modal/conf
     TruncateInvoiceReferencePipe,
     CurrencyXofPipe,
     CustomDatePipe,
-    InitialsPipe,
     TableComponent,
     ConfirmModalComponent,
     PaginationComponent

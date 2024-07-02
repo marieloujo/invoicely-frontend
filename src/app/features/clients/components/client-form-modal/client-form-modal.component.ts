@@ -21,8 +21,7 @@ import { FormErrorComponent } from '@app/shared/components/form-error/form-error
     FormErrorComponent,
     FormButtonComponent
   ],
-  templateUrl: './client-form-modal.component.html',
-  styleUrl: './client-form-modal.component.css'
+  templateUrl: './client-form-modal.component.html'
 })
 export class ClientFormModalComponent {
   private subscription: Subscription = new Subscription;

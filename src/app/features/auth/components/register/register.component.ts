@@ -17,8 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     FormErrorComponent,
     AuthButtonComponent
   ],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   typeFacturations = Object.values(TypeFacturation);
