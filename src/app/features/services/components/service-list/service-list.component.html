@@ -1,3 +1,10 @@
+
+<div *ngIf="errorMessage" class="alert alert-danger alert-dismissible alert-label-icon label-arrow fade show mb-2" role="alert">
+    <i class="ri-error-warning-line label-icon"></i><strong>Danger</strong>
+    {{ errorMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
 <app-table>
     <thead slot="thead">
         <tr class="text-muted text-uppercase">
@@ -34,4 +41,7 @@
 
 <app-service-form-modal [service]="selectedService" [isEditMode]="isEditMode" (closeEditModeEvent)="closeEditMode($event)" ></app-service-form-modal>
 
-<app-confirm-modal (confirmed)="onDeleteConfirmed($event)"></app-confirm-modal>
+<app-confirm-modal
+    (confirmed)="onDeleteConfirmed($event)"
+    description="Vous êtes sur le point de supprimer un service, êtes-vous certain de ce choix ?">
+</app-confirm-modal>

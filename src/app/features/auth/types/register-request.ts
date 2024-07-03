@@ -1,7 +1,6 @@
 export interface RegisterRequest {
-    email: string,
-    name: string,
-    type: string,
-    password: string,
-    password_confirmation: string,
+    email?: string | null,
+    name?: string | null,
+    password?: string | null,
+    password_confirmation?: string | null,
 }

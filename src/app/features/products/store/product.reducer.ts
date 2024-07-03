@@ -7,6 +7,8 @@ export interface ProductState {
   currentPage: number;
   totalPages: number;
   error: any;
+  success: boolean;
+  formErrors: any;
   loading: boolean;
 }
 
@@ -15,7 +17,9 @@ export const initialState: ProductState = {
   currentPage: 1,
   totalPages: 1,
   loading: false,
-  error: null
+  error: null,
+  success: false,
+  formErrors: null,
 };
 
 export const productReducer = createReducer(
@@ -32,6 +36,7 @@ export const productReducer = createReducer(
     products: [...state.products, product],
     error: null,
     loading: false,
+    success: true,
   })),
   on(ProductActions.addProductFailure, (state, { error }) => ({
     ...state,
@@ -42,6 +47,7 @@ export const productReducer = createReducer(
     ...state,
     products: state.products.map(c => c.id === product.id ? product : c),
     loading: false,
+    success: true,
   })),
   on(ProductActions.updateProductFailure, (state, { error }) => ({
     ...state,

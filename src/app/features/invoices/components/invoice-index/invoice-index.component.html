@@ -16,7 +16,7 @@
 
 <div class="row pb-4 gy-3">
     <div class="col-sm-4">
-        <a routerLink="creer/produits" class="btn btn-primary">
+        <a routerLink="/app/factures/creer/produit" class="btn btn-primary">
             <i class="las la-plus me-1"></i>
             Ajouter
         </a>
@@ -24,7 +24,7 @@
 </div>
 
 @defer () {
-    <app-invoice-list></app-invoice-list>
+    <app-invoice-list [withPagination]="true"></app-invoice-list>
 } @loading (minimum 2s) {
     <p>Chargement de la liste...</p>
     <p class="card-text placeholder-glow">

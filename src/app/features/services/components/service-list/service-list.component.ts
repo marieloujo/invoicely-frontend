@@ -4,11 +4,11 @@ import { TableComponent } from '@app/shared/components/table/table.component';
 import { ServiceFormModalComponent } from '../service-form-modal/service-form-modal.component';
 import { ConfirmModalComponent } from '@app/shared/components/confirm-modal/confirm-modal.component';
 import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Service } from '@app/shared/models/service.model';
 import { addService, deleteService, loadServices } from '../../store/service.actions';
-import { selectAllServices, selectCurrentPage, selectTotalPages } from '../../store/service.selectors';
+import { selectAllServices, selectCurrentPage, selectTotalPages, selectServiceError } from '../../store/service.selectors';
 import { CurrencyXofPipe } from '@app/shared/pipes/currency-xof.pipe';
 
 @Component({
@@ -26,16 +26,16 @@ import { CurrencyXofPipe } from '@app/shared/pipes/currency-xof.pipe';
   templateUrl: './service-list.component.html'
 })
 export class ServiceListComponent {
-  private subscription: Subscription = new Subscription;
-
   services$: Observable<Service[]>;
   currentPage$: Observable<number>;
   totalPages$: Observable<number>;
+  error$: Observable<any>;
 
   selectedService: Service | null = null;
   serviceToDelete: Service | null = null;
 
   currentPage: number = 1;
+  errorMessage: string = '';
   totalPages: number = 1;
   isEditMode: boolean = false;
 
@@ -43,16 +43,14 @@ export class ServiceListComponent {
     this.services$ = this.store.select(selectAllServices);
     this.currentPage$ = this.store.select(selectCurrentPage);
     this.totalPages$ = this.store.select(selectTotalPages);
+    this.error$ = this.store.select(selectServiceError);
   }
 
   ngOnInit(): void {
     this.loadServices(1);
-    this.subscription = this.currentPage$.subscribe(page => {
-      this.currentPage = page;
-    });
-    this.subscription = this.totalPages$.subscribe(page => {
-      this.totalPages = page;
-    });
+    this.currentPage$.subscribe(page => { this.currentPage = page; });
+    this.totalPages$.subscribe(page => { this.totalPages = page; });
+    this.error$.subscribe(error => { this.displayError(error) });
   }
 
   loadServices(page: number): void {
@@ -85,6 +83,10 @@ export class ServiceListComponent {
   closeEditMode(state: boolean) {
     this.isEditMode = state;
     this.selectedService = null
+  }
+
+  displayError(error: any) {
+    if (error?.status != 422) this.errorMessage = error?.error?.message;
   }
 
 }

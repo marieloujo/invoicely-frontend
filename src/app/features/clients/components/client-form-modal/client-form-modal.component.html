@@ -1,31 +1,26 @@
 <app-modal modalId="myModal" [title]="formTitle">
-    <form [formGroup]="clientForm" (submit)="onSubmit()" (reset)="reset()">
+    <form [formGroup]="formGroup" (submit)="onSubmit()" (reset)="reset()">
         <div class="modal-body">
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="last-name" class="col-form-label">Nom:</label>
                     <input type="text" class="form-control" id="last-name" formControlName="last_name">
-                    <app-form-error [control]="clientForm.get('last_name')"/>
+                    <app-form-error [control]="formGroup.get('last_name')"/>
                 </div>
                 <div class="mb-3 col-6">
                     <label for="first-name" class="col-form-label">Prénom:</label>
                     <input type="text" class="form-control" id="first-name" formControlName="first_name">
-                    <app-form-error [control]="clientForm.get('first_name')"/>
+                    <app-form-error [control]="formGroup.get('first_name')"/>
                 </div>
                 <div class="mb-3 col-12">
                     <label for="email" class="col-form-label">Email:</label>
                     <input type="text" class="form-control" id="email" formControlName="email">
-                    <app-form-error [control]="clientForm.get('email')"/>
+                    <app-form-error [control]="formGroup.get('email')"/>
                 </div>
                 <div class="mb-3 col-12">
                     <label for="adresse" class="col-form-label">Adresse:</label>
                     <input type="text" class="form-control" id="adresse" formControlName="adresse">
-                    <app-form-error [control]="clientForm.get('adresse')"/>
-                </div>
-            </div>
-            <div *ngIf="error$ | async as error">
-                <div class="alert alert-danger">
-                    {{ error }}
+                    <app-form-error [control]="formGroup.get('adresse')"/>
                 </div>
             </div>
         </div>
@@ -33,7 +28,7 @@
             <button type="reset" id="dismiss-modal" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
             <app-form-button
                 [loading]="loading"
-                [disabled]="clientForm.pristine"
+                [disabled]="formGroup.pristine"
                 [title]="buttonTitle"
                 />
         </div>

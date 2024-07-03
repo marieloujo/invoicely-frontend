@@ -7,6 +7,7 @@ export interface ClientState {
   currentPage: number;
   totalPages: number;
   error: any;
+  success: boolean;
   loading: boolean;
 }
 
@@ -15,6 +16,7 @@ export const initialState: ClientState = {
   currentPage: 1,
   totalPages: 1,
   loading: false,
+  success: false,
   error: null
 };
 
@@ -32,6 +34,7 @@ export const clientReducer = createReducer(
     clients: [...state.clients, client],
     error: null,
     loading: false,
+    success: true,
   })),
   on(ClientActions.addClientFailure, (state, { error }) => ({
     ...state,
@@ -42,6 +45,7 @@ export const clientReducer = createReducer(
     ...state,
     clients: state.clients.map(c => c.id === client.id ? client : c),
     loading: false,
+    success: true,
   })),
   on(ClientActions.updateClientFailure, (state, { error }) => ({
     ...state,

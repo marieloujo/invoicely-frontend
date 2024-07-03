@@ -42,4 +42,7 @@
 
 <app-client-form-modal [client]="selectedClient" [isEditMode]="isEditMode" (closeEditModeEvent)="closeEditMode($event)" ></app-client-form-modal>
 
-<app-confirm-modal (confirmed)="onDeleteConfirmed($event)"></app-confirm-modal>
+<app-confirm-modal
+    (confirmed)="onDeleteConfirmed($event)"
+    description="Vous êtes sur le point de supprimer un client, êtes-vous certain de ce choix ?">
+</app-confirm-modal>

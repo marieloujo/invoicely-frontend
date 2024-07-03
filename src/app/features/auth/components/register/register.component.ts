@@ -7,6 +7,7 @@ import { AuthButtonComponent } from '@features/auth/ui/auth-button/auth-button.c
 import { CustomValidatorService } from '@features/auth/services/custom-validator.service';
 import { AuthService } from '@features/auth/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,6 @@ export class RegisterComponent {
 
   registerForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    type: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -39,7 +39,8 @@ export class RegisterComponent {
   constructor(
     private customValidator: CustomValidatorService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
   }
 
@@ -48,20 +49,17 @@ export class RegisterComponent {
       this.loading = true
 
       const body = {
-        name: this.registerForm.value.name || '',
-        type: this.registerForm.value.type || '',
-        email: this.registerForm.value.email || '',
-        password: this.registerForm.value.password || '',
-        password_confirmation: this.registerForm.value.passwordConfirmation || '',
+        ...this.registerForm.value,
+        password_confirmation: this.registerForm.value.passwordConfirmation || ''
       }
 
       this.authService.register(body).subscribe({
         next: (response) => {
+          this.toastr.success('Votre compte a été créé avec succès. Vous pouvez à présent vous connecter.', 'Bravo!')
           this.loading = false
           this.router.navigate(['/auth/login'])
         },
         error: (err) => {
-          console.error('Register error', err);
           if (err instanceof HttpErrorResponse) {
             this.handleFormErrors(err.error, err.status);
           }

@@ -81,7 +81,7 @@ export class ServiceEffects {
     this.actions$.pipe(
       ofType(ServiceActions.addServiceSuccess),
       map(action => {
-        this.toastr.success('Service ajouté avec succès', 'Success');
+        this.toastr.success('Service ajouté avec succès', 'Bravo!');
         document.getElementById('dismiss-modal')?.click()
       })
     ), { dispatch: false }
@@ -91,8 +91,7 @@ export class ServiceEffects {
     this.actions$.pipe(
       ofType(ServiceActions.addServiceFailure),
       map(action => {
-        this.toastr.error('Échec de l\'ajout d\'un service', 'Error');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.error('Échec de l\'ajout d\'un service', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -102,7 +101,7 @@ export class ServiceEffects {
     this.actions$.pipe(
       ofType(ServiceActions.updateServiceSuccess),
       map(action => {
-        this.toastr.success('Le service a été mis à jour avec succès', 'Success');
+        this.toastr.success('Le service a été mis à jour avec succès', 'Bravo!');
         document.getElementById('dismiss-modal')?.click()
       })
     ), { dispatch: false }
@@ -112,8 +111,7 @@ export class ServiceEffects {
     this.actions$.pipe(
       ofType(ServiceActions.updateServiceFailure),
       map(action => {
-        this.toastr.error('Échec de la mise à jour du service', 'Error');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.error('Échec de la mise à jour du service', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -123,7 +121,7 @@ export class ServiceEffects {
     this.actions$.pipe(
       ofType(ServiceActions.deleteServiceSuccess),
       map(action => {
-        this.toastr.success('Le service a été supprimé avec succès', 'Success');
+        this.toastr.success('Le service a été supprimé avec succès', 'Bravo!');
         document.getElementById('dismiss-confirm-modal')?.click()
       })
     ), { dispatch: false }
@@ -133,7 +131,7 @@ export class ServiceEffects {
     this.actions$.pipe(
       ofType(ServiceActions.deleteServiceFailure),
       map(action => {
-        this.toastr.error('Échec de la suppression du service', 'Error');
+        this.toastr.error('Échec de la suppression du service', 'Oups!');
         document.getElementById('dismiss-confirm-modal')?.click()
         this.errorHandlerService.handleError(action.error)
       })

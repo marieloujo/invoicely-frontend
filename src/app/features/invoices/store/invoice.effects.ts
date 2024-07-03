@@ -55,7 +55,7 @@ export class InvoiceEffects {
     this.actions$.pipe(
       ofType(InvoiceActions.addInvoiceSuccess),
       map(action => {
-        this.toastr.success('Produit ajouté avec succès', 'Success');
+        this.toastr.success('Facture créée avec succès', 'Bravo!');
       })
     ), { dispatch: false }
   );
@@ -64,7 +64,7 @@ export class InvoiceEffects {
     this.actions$.pipe(
       ofType(InvoiceActions.addInvoiceFailure),
       map(action => {
-        this.toastr.error('Échec de l\'ajout d\'un produit', 'Error');
+        this.toastr.error('Échec de la création de la facture', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -73,7 +73,6 @@ export class InvoiceEffects {
   findInvoiceById$ = createEffect(() => this.actions$.pipe(
     ofType(InvoiceActions.findInvoiceByIdStart),
     mergeMap(action => this.invoiceService.getInvoiceById(action.id).pipe(
-      tap(response => console.log('API Response:', response.data)),
       map(response => InvoiceActions.findInvoiceByIdSuccess({ invoice: response.data })),
       catchError(error => of(InvoiceActions.findInvoiceByIdFailure({ error: error.message })))
     ))
@@ -95,7 +94,7 @@ export class InvoiceEffects {
     this.actions$.pipe(
       ofType(InvoiceActions.updateInvoiceSuccess),
       map(action => {
-        this.toastr.success('La facture été marqué comme payé avec succès', 'Success');
+        this.toastr.success('La facture été marqué comme payé avec succès', 'Bravo!');
         document.getElementById('dismiss-confirm-modal')?.click()
       })
     ), { dispatch: false }
@@ -105,7 +104,7 @@ export class InvoiceEffects {
     this.actions$.pipe(
       ofType(InvoiceActions.updateInvoiceFailure),
       map(action => {
-        this.toastr.error('Échec de la mise à jour de la facture', 'Error');
+        this.toastr.error('Échec de la mise à jour de la facture', 'Oups!');
         document.getElementById('dismiss-confirm-modal')?.click()
         this.errorHandlerService.handleError(action.error)
       })

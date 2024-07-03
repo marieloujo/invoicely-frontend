@@ -42,11 +42,10 @@ interface FactureAmount {
 })
 export class InvoiceCreateComponent {
 
-  typeFacture: TypeFacturation = TypeFacturation.SERVICE;
+  @Input() typeFacture: TypeFacturation = TypeFacturation.PRODUCT;
 
-  createInvoiceForm: FormGroup;
-  products$!: Observable<Product[]>;
-  services$!: Observable<Service[]>;
+  createInvoiceForm!: FormGroup;
+  products$!: Observable<any[]>;
   clients$!: Observable<Client[]>;
   loading$!: Observable<boolean>;
   error$: Observable<string>;
@@ -60,7 +59,37 @@ export class InvoiceCreateComponent {
   loading: boolean = false;
   selectClient: boolean = true;
 
-  constructor(private store: Store, private route: ActivatedRoute) {
+  constructor(private store: Store) {
+    this.store.dispatch(loadClients({page:1}));
+    this.error$ = this.store.select(selectInvoiceError);
+  }
+
+  ngOnInit() {
+    if (this.typeFacture == TypeFacturation.PRODUCT) {
+      this.store.dispatch(loadProducts({page:1}));
+      this.products$ = this.store.select(selectAllProducts);
+      this.products$.subscribe(products => {
+        this.products = this.transformProductList(products);
+      });
+    }
+
+    else {
+      this.store.dispatch(loadServices({page:1}));
+      this.products$ = this.store.select(selectAllServices);
+      this.products$.subscribe(products => {
+        this.products = this.transformProductList(products);
+      });
+    }
+
+    this.clients$ = this.store.select(selectAllClients);
+    this.loading$ = this.store.select(selectLoading);
+
+    this.clients$.subscribe(clients => {
+      this.clients = this.transformClientList(clients);
+    });
+    this.loading$.subscribe(loading => {
+      this.loading = loading;
+    });
     this.createInvoiceForm = new FormGroup({
       items: new FormArray([
         this.createItem()
@@ -85,43 +114,9 @@ export class InvoiceCreateComponent {
       }),
       type: new FormControl(this.typeFacture)
     });
-    this.store.dispatch(loadClients({page:1}));
-    this.error$ = this.store.select(selectInvoiceError);
-  }
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.typeFacture = params.get('type') == 'services'
-        ? TypeFacturation.SERVICE
-        : TypeFacturation.PRODUCT 
-    });
-    if (this.typeFacture == TypeFacturation.PRODUCT) {
-      this.store.dispatch(loadProducts({page:1}));
-      this.products$ = this.store.select(selectAllProducts);
-      this.products$.subscribe(products => {
-        this.products = this.transformProductList(products);
-      });
-    }
-
-    else {
-      this.store.dispatch(loadServices({page:1}));
-      this.services$ = this.store.select(selectAllServices);
-      this.services$.subscribe(services => {
-        this.products = this.transformProductList(services);
-      });
-    }
-
-    this.clients$ = this.store.select(selectAllClients);
-    this.loading$ = this.store.select(selectLoading);
-
-    this.clients$.subscribe(clients => {
-      this.clients = this.transformClientList(clients);
-    });
-    this.loading$.subscribe(loading => {
-      this.loading = loading;
-    });
 
     this.amountData = this.caculateTotalAmount();
+
   }
 
   transformProductList(products: Product[] | Service[]): any {
@@ -181,6 +176,7 @@ export class InvoiceCreateComponent {
       this.store.dispatch(showLoader());
       this.store.dispatch(addInvoice({ invoice: this.createInvoiceForm.value }));
       this.createInvoiceForm.reset({type: this.typeFacture})
+      console.log(this.createInvoiceForm.value, this.typeFacture)
     } else {
       this.createInvoiceForm.markAllAsTouched();
     }
@@ -193,7 +189,6 @@ export class InvoiceCreateComponent {
 
   caculateTotalAmount(): FactureAmount {
     if (this.items.length <= 1 && !this.items.at(0).get('id')) {
-      console.log("not has");
       
       return {
         montantTotalHT: 0,
@@ -202,8 +197,6 @@ export class InvoiceCreateComponent {
       }
     }
     else {
-      console.log("has");
-
       let montantTotalHT = 0,
           montantTotalTaxe = 0;
 
@@ -224,7 +217,8 @@ export class InvoiceCreateComponent {
     }
   }
 
-  updateTotalAmount(data: any) {
+  onProductSelected(data: any) {
+    console.log(data.value);
     this.amountData = this.caculateTotalAmount()
   }
 
@@ -245,9 +239,6 @@ export class InvoiceCreateComponent {
     return (control: AbstractControl): ValidationErrors | null => {
       const qte = control.value;
       const productId = control.parent?.get('id')?.value
-
-      console.log("validation", qte, productId);
-      
 
       const product = this.products?.find(item => item.data.id === productId)
 

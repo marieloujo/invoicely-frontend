@@ -7,6 +7,7 @@ export interface ServiceState {
   currentPage: number;
   totalPages: number;
   error: any;
+  success: boolean;
   loading: boolean;
 }
 
@@ -15,6 +16,7 @@ export const initialState: ServiceState = {
   currentPage: 1,
   totalPages: 1,
   loading: false,
+  success: false,
   error: null
 };
 
@@ -31,6 +33,7 @@ export const serviceReducer = createReducer(
     ...state,
     services: [...state.services, service],
     error: null,
+    success: true,
     loading: false,
   })),
   on(ServiceActions.addServiceFailure, (state, { error }) => ({
@@ -42,6 +45,7 @@ export const serviceReducer = createReducer(
     ...state,
     services: state.services.map(c => c.id === service.id ? service : c),
     loading: false,
+    success: true,
   })),
   on(ServiceActions.updateServiceFailure, (state, { error }) => ({
     ...state,

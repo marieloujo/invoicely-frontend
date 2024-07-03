@@ -33,4 +33,8 @@ export class ProductService {
     return this.httpClientService.delete<void>(url);
   }
 
+  closeForm() {
+    document.getElementById('dismiss-modal')?.click()
+  }
+
 }

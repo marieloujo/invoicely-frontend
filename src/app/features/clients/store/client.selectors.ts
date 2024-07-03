@@ -23,6 +23,11 @@ export const selectClientError = createSelector(
   (state: ClientState) => state.error
 );
 
+export const selectSuccess = createSelector(
+  selectClientState,
+  (state: ClientState) => state.success
+);
+
 export const selectLoading = createSelector(
   selectClientState,
   (state: ClientState) => state.loading

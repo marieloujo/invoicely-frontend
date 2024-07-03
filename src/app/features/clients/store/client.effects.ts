@@ -71,7 +71,7 @@ export class ClientEffects {
     this.actions$.pipe(
       ofType(ClientActions.addClientSuccess),
       map(action => {
-        this.toastr.success('Client ajouté avec succès', 'Success');
+        this.toastr.success('Client ajouté avec succès', 'Bravo!');
         document.getElementById('dismiss-modal')?.click()
       })
     ), { dispatch: false }
@@ -90,8 +90,7 @@ export class ClientEffects {
     this.actions$.pipe(
       ofType(ClientActions.addClientFailure),
       map(action => {
-        this.toastr.error('Échec de l\'ajout d\'un client', 'Error');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.error('Échec de l\'ajout d\'un client', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -101,7 +100,7 @@ export class ClientEffects {
     this.actions$.pipe(
       ofType(ClientActions.updateClientSuccess),
       map(action => {
-        this.toastr.success('Le client a été mis à jour avec succès', 'Success');
+        this.toastr.success('Le client a été mis à jour avec succès', 'Bravo!');
         document.getElementById('dismiss-modal')?.click()
       })
     ), { dispatch: false }
@@ -111,8 +110,7 @@ export class ClientEffects {
     this.actions$.pipe(
       ofType(ClientActions.updateClientFailure),
       map(action => {
-        this.toastr.error('Échec de la mise à jour du client', 'Error');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.error('Échec de la mise à jour du client', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -122,7 +120,7 @@ export class ClientEffects {
     this.actions$.pipe(
       ofType(ClientActions.deleteClientSuccess),
       map(action => {
-        this.toastr.success('Le client a été supprimé avec succès', 'Success');
+        this.toastr.success('Le client a été supprimé avec succès', 'Bravo!');
         document.getElementById('dismiss-confirm-modal')?.click()
       })
     ), { dispatch: false }
@@ -132,7 +130,7 @@ export class ClientEffects {
     this.actions$.pipe(
       ofType(ClientActions.deleteClientFailure),
       map(action => {
-        this.toastr.error('Échec de la suppression du client', 'Error');
+        this.toastr.error('Échec de la suppression du client', 'Oups!');
         document.getElementById('dismiss-confirm-modal')?.click()
         this.errorHandlerService.handleError(action.error)
       })

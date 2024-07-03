@@ -4,10 +4,10 @@ import { TableComponent } from '@app/shared/components/table/table.component';
 import { ProductFormModalComponent } from '../product-form-modal/product-form-modal.component';
 import { ConfirmModalComponent } from '@app/shared/components/confirm-modal/confirm-modal.component';
 import { PaginationComponent } from '@app/shared/components/pagination/pagination.component';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Product } from '@app/shared/models/product.model';
-import { selectAllProducts, selectCurrentPage, selectTotalPages } from '../../store/product.selectors';
+import { selectAllProducts, selectCurrentPage, selectProductError, selectTotalPages } from '../../store/product.selectors';
 import { addProduct, deleteProduct, loadProducts } from '../../store/product.actions';
 import { CurrencyXofPipe } from '@app/shared/pipes/currency-xof.pipe';
 
@@ -27,15 +27,16 @@ import { CurrencyXofPipe } from '@app/shared/pipes/currency-xof.pipe';
   templateUrl: './product-list.component.html'
 })
 export class ProductListComponent {
-  private subscription: Subscription = new Subscription;
 
   products$: Observable<Product[]>;
   currentPage$: Observable<number>;
   totalPages$: Observable<number>;
+  error$: Observable<any>;
 
   selectedProduct: Product | null = null;
   productToDelete: Product | null = null;
 
+  errorMessage: string = '';
   currentPage: number = 1;
   totalPages: number = 1;
   isEditMode: boolean = false;
@@ -44,16 +45,14 @@ export class ProductListComponent {
     this.products$ = this.store.select(selectAllProducts);
     this.currentPage$ = this.store.select(selectCurrentPage);
     this.totalPages$ = this.store.select(selectTotalPages);
+    this.error$ = this.store.select(selectProductError);
   }
 
   ngOnInit(): void {
     this.loadProducts(1);
-    this.subscription = this.currentPage$.subscribe(page => {
-      this.currentPage = page;
-    });
-    this.subscription = this.totalPages$.subscribe(page => {
-      this.totalPages = page;
-    });
+    this.currentPage$.subscribe(page => { this.currentPage = page; });
+    this.totalPages$.subscribe(page => { this.totalPages = page; });
+    this.error$.subscribe(error => { this.displayError(error) });
   }
 
   loadProducts(page: number): void {
@@ -98,6 +97,10 @@ export class ProductListComponent {
     } else {
       return 'critique';
     }
+  }
+
+  displayError(error: any) {
+    if (error?.status != 422) this.errorMessage = error?.error?.message;
   }
 
 }

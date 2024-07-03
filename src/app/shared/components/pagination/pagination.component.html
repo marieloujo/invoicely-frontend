@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-end">
     <div class="pagination-wrap hstack gap-2">
         <button class="page-item pagination-prev {{isPreviousButtonDisabled() ? 'disabled' : ''}}" (click)="goToPage(currentPage - 1)">
-            Previous
+            Précédent
         </button>
         <ul class="pagination listjs-pagination mb-0">
             <li *ngFor="let page of getArray(totalPages); let i = index" [class.active]="i + 1 === currentPage">
@@ -9,7 +9,7 @@
             </li>
         </ul>
         <button class="page-item pagination-next {{isNextButtonDisabled() ? 'disabled' : ''}}" (click)="goToPage(currentPage + 1)">
-            Next
+            Suivant
         </button>
     </div>
 </div>

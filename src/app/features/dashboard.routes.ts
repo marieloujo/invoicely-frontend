@@ -9,6 +9,8 @@ import { InvoiceDetailComponent } from './invoices/components/invoice-detail/inv
 import { InvoiceCreateComponent } from './invoices/components/invoice-create/invoice-create.component';
 import { LayoutComponent } from './layout.component';
 import { DashboardIndexComponent } from './dashboard/components/dashboard-index/dashboard-index.component';
+import { InvoiceCreateProductComponent } from './invoices/components/invoice-create-product/invoice-create-product.component';
+import { InvoiceCreateServiceComponent } from './invoices/components/invoice-create-service/invoice-create-service.component';
 
 const routes: Routes = [
   {
@@ -23,7 +25,8 @@ const routes: Routes = [
         path: 'factures',
         children: [
           { path: '', component: InvoiceIndexComponent },
-          { path: 'creer/:type', component: InvoiceCreateComponent },
+          { path: 'creer/produit', component: InvoiceCreateProductComponent },
+          { path: 'creer/service', component: InvoiceCreateServiceComponent },
           { path: ':id', component: InvoiceDetailComponent },
         ]
       },

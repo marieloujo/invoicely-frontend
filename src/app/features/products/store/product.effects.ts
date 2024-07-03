@@ -80,8 +80,8 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.addProductSuccess),
       map(action => {
-        this.toastr.success('Produit ajouté avec succès', 'Success');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.success('Produit ajouté avec succès', 'Bravo!');
+        this.productService.closeForm()
       })
     ), { dispatch: false }
   );
@@ -90,8 +90,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.addProductFailure),
       map(action => {
-        this.toastr.error('Échec de l\'ajout d\'un produit', 'Error');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.error('Échec de l\'ajout d\'un produit', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -101,8 +100,8 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.updateProductSuccess),
       map(action => {
-        this.toastr.success('Le produit a été mis à jour avec succès', 'Success');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.success('Le produit a été mis à jour avec succès', 'Bravo!');
+        this.productService.closeForm()
       })
     ), { dispatch: false }
   );
@@ -111,8 +110,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.updateProductFailure),
       map(action => {
-        this.toastr.error('Échec de la mise à jour du produit', 'Error');
-        document.getElementById('dismiss-modal')?.click()
+        this.toastr.error('Échec de la mise à jour du produit', 'Oups!');
         this.errorHandlerService.handleError(action.error)
       })
     ), { dispatch: false }
@@ -122,7 +120,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.deleteProductSuccess),
       map(action => {
-        this.toastr.success('Le produit a été supprimé avec succès', 'Success');
+        this.toastr.success('Le produit a été supprimé avec succès', 'Bravo!');
         document.getElementById('dismiss-confirm-modal')?.click()
       })
     ), { dispatch: false }
@@ -132,7 +130,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.deleteProductFailure),
       map(action => {
-        this.toastr.error('Échec de la suppression du produit', 'Error');
+        this.toastr.error('Échec de la suppression du produit', 'Oups!');
         document.getElementById('dismiss-confirm-modal')?.click()
         this.errorHandlerService.handleError(action.error)
       })

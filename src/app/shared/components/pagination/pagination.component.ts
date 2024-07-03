@@ -19,7 +19,7 @@ export class PaginationComponent {
   }
 
   isNextButtonDisabled(): boolean {
-    return this.currentPage >= this.totalPages;
+    return this.currentPage === this.totalPages;
   }
 
   getArray(length: number): number[] {
@@ -27,7 +27,8 @@ export class PaginationComponent {
   }
 
   goToPage(page: number) {
-    this.goToPageEvent.emit(page);
+    if (!(page > this.totalPages))
+      this.goToPageEvent.emit(page);
   }
 
 }

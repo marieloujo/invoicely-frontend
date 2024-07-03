@@ -26,9 +26,6 @@
                 <label for="userpassword" class="form-label">Mot de passe <sup class="text-danger">*</sup> </label>
                 <div class="position-relative auth-pass-inputgroup">
                     <input type="password" class="form-control pe-5 password-input" id="password-input" formControlName="password">
-                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
-                        <i class="las la-eye align-middle fs-18"></i>
-                    </button>
                </div>
                <app-form-error [control]="registerForm.get('password')"></app-form-error>
             </div>
@@ -37,26 +34,14 @@
                 <label for="password-confirmation" class="form-label">Confirmer le mot de passe <sup class="text-danger">*</sup> </label>
                 <div class="position-relative auth-pass-inputgroup">
                     <input type="password" class="form-control pe-5 password-input" id="password-confirmation" formControlName="passwordConfirmation">
-                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
-                        <i class="las la-eye align-middle fs-18"></i>
-                    </button>
                </div>
                <app-form-error [control]="registerForm.get('passwordConfirmation')"></app-form-error>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Système de facturation <sup class="text-danger">*</sup> </label>
-                <select class="form-select mb-3" formControlName="type">
-                    <option [value]="typeFacturations.at(0)">Gestion de service</option>
-                    <option [value]="typeFacturations.at(1)">Gestion de produit</option>
-                </select>
-                <app-form-error [control]="registerForm.get('type')"></app-form-error>
             </div>
 
             <app-auth-button [loading]="loading" name="S'enregistrer"></app-auth-button>
 
             <div class="mt-4 text-center">
-                <p class="mb-0">Vous avez un compte ? ?
+                <p class="mb-0">Vous avez un compte ?
                     <a routerLink="/auth/login"class="fw-medium text-primary text-decoration-underline"> Connectez-vous </a>
                 </p>
             </div>
